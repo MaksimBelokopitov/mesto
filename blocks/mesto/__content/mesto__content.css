@@ -1,0 +1,12 @@
+.mesto__content {
+    box-sizing: border-box;
+    background-color: #FFF;
+    padding-top: 25px;
+    padding-left: 21px;
+    padding-right: 15px;
+    padding-bottom: 31px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: flex;
+    align-items: center;
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./pages/index.css">
+    <script defer src="./script/index.js"></script>
+  </head>
+  <body class="page">
+    <header class="header">
+      <a href="#" class="header__logo"></a>
+    </header>
+    <main class="main">
+      <section class="profile">
+        <div class="profile__avatar"></div>
+        <div class="profile__info">
+          <div class="profile__top-row">
+            <h2 class="profile__name">Жак-Ив Кусто</h2>
+            <button class="profile__edit-button"></button>
+          </div>
+          <p class="profile__job">Исследователь океана</p>
+        </div>
+        <button class="profile__add-button"></button>
+      </section>
+      <section class="mesto">
+        <ul class="mesto__list">
+          <li class="mesto__item">
+            <img
+              src="./images/karachaevsk.jpg"
+              alt="Карачаево-Черкесская республика"
+              class="mesto__image"
+            >
+            <div class="mesto__content">
+              <h2 class="mesto__title">Карачаево-Черкесская республика</h2>
+              <button class="mesto__like-button"></button>
+            </div>
+          </li>
+          <li class="mesto__item">
+            <img
+              src="./images/elbrus.png"
+              alt="Гора Эльбрус"
+              class="mesto__image"
+            >
+            <div class="mesto__content">
+              <h2 class="mesto__title">Гора Эльбрус</h2>
+              <button class="mesto__like-button"></button>
+            </div>
+          </li>
+          <li class="mesto__item">
+            <img 
+                src="./images/dombay.png" 
+                alt="Домбай" 
+                class="mesto__image" 
+            >
+            <div class="mesto__content">
+              <h2 class="mesto__title">Домбай</h2>
+              <button class="mesto__like-button"></button>
+            </div>
+          </li>
+          <li class="mesto__item">
+            <img 
+                src="./images/arhyz.jpg" 
+                alt="Архыз" 
+                class="mesto__image" 
+            >
+            <div class="mesto__content">
+              <h2 class="mesto__title">Архыз</h2>
+              <button class="mesto__like-button"></button>
+            </div>
+          </li>
+          <li class="mesto__item">
+            <img
+              src="./images/djily-su.jpg"
+              alt="Джилы-Су"
+              class="mesto__image"
+            >
+            <div class="mesto__content">
+              <h2 class="mesto__title">Джилы-Су</h2>
+              <button class="mesto__like-button"></button>
+            </div>
+          </li>
+          <li class="mesto__item">
+            <img
+              src="./images/sulakskiy-kanion.jpg"
+              alt="Сулакский каньон"
+              class="mesto__image"
+            >
+            <div class="mesto__content">
+              <h2 class="mesto__title">Сулакский каньон</h2>
+              <button class="mesto__like-button"></button>
+            </div>
+          </li>
+        </ul>
+      </section>
+      <section class="popup">
+        <form action="submit" class="popup__container">
+          <button class="popup__button-close"></button>
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input
+            class="popup__input"
+            type="text"
+            name="name"
+            placeholder="Введите ваше имя"
+            required
+          >
+          <input
+            class="popup__input"
+            type="text"
+            name="job"
+            placeholder="Напишите информацию о себе"
+            required
+          >
+          <button class="popup__button">Сохранить</button>
+        </form>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
+    </footer>
+  </body>
+</html>
