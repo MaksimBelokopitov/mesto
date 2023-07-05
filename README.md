@@ -14,4 +14,4 @@
 - JavaScript
 
 ## Ссылка на проект
-
+https://maksimbelokopitov.github.io/mesto/
