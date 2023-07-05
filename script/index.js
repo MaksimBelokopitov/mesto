@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 
     function closePopup() {
-        popupWindow.classList.remove('popup_opened')
+        popupWindow.classList.remove('popup_opened');
     };
 
     popupCloseButton.addEventListener('click', function(evt){
@@ -32,6 +32,6 @@ document.addEventListener('DOMContentLoaded', function(){
         userName.textContent = nameInput.value;
         userJob.textContent = jobInput.value;
         closePopup();
-    })   
-})
+    });  
+});
 
