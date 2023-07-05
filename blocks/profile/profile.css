@@ -1,0 +1,19 @@
+.profile {
+    box-sizing: border-box;
+    display: grid;
+    padding-top: 50px;
+    align-items: center;
+    grid-template-columns:  120px auto 150px;
+    column-gap: 30px;
+}
+
+@media screen and (max-width: 618px) {
+    .profile {
+        display: flex;
+        flex-direction: column;
+        padding-top: 38px; 
+        gap: 22px;
+        padding-right: 19px;
+        padding-left: 19px;
+    }
+}
