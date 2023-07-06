@@ -4,7 +4,7 @@
     background-image: url(../../../images/like.svg);
     background-size: cover;
     border: none;
-    background-color: #fff;
+    background-color: transparent;
     padding: 0;
     background-position: center;
     margin-left: auto;
@@ -15,7 +15,3 @@
     cursor: pointer;
 }
 
-.mesto__like-button:active {
-    background-image: url(../../../images/Union.png);
-    opacity: 1;
-}

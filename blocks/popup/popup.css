@@ -9,7 +9,7 @@
     height:100%;
 }
 
-.popup:before {
+.popup::before {
     content: "";
     position: absolute;
     width: 100%;

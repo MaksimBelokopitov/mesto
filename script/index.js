@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function(){
     let nameInput = arrInput[0];
     let jobInput = arrInput[1];
     let formButton = formElement.querySelector('.popup__button');
+    let likeButtons = Array.from(document.querySelectorAll('.mesto__like-button'));
 
     openButton.addEventListener('click', function(){
         popupWindow.classList.add('popup_opened');
@@ -27,11 +28,21 @@ document.addEventListener('DOMContentLoaded', function(){
         closePopup();
     });
 
-    formButton.addEventListener('click', function(evt){
-        evt.preventDefault();
+    function handleFormSubmit (evt) {
+        evt.preventDefault(); 
         userName.textContent = nameInput.value;
         userJob.textContent = jobInput.value;
         closePopup();
-    });  
+    };  
+
+    formElement.addEventListener('submit', handleFormSubmit)
+     
+   
+    for( let i = 0; i < 6; i++){
+        likeButtons[i].onclick = function(){
+            likeButtons[i].classList.toggle('mesto__like-button_active')
+        }
+    }  
+    
 });
 

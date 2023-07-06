@@ -10,7 +10,6 @@
     display: flex;
     flex-direction: column;
     width: 430px;
-    border: 1px solid #fff;
     position: relative;
 }
 
