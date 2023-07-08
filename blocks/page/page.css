@@ -19,6 +19,10 @@
     min-width: 320px;
 }
 
+*{
+    outline: 1px solid red;
+}
+
 
 @media screen and (max-width: 1279px) {
     .page {
