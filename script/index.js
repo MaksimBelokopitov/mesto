@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function(){
     let formElement = document.querySelector('.popup__container');
     let nameInput = document.querySelector('.popup__input_type_user-name')
     let jobInput = document.querySelector('.popup__input_type_user-job')
-    let likeButtons = Array.from(document.querySelectorAll('.mesto__like-button'));
 
     openButton.addEventListener('click', function(){
         popupWindow.classList.add('popup_opened');
@@ -34,11 +33,5 @@ document.addEventListener('DOMContentLoaded', function(){
     };  
 
     formElement.addEventListener('submit', handleFormSubmit)
-     
-    for( let i = 0; i < 6; i++){
-        likeButtons[i].onclick = function(){
-            likeButtons[i].classList.toggle('mesto__like-button_active')
-        }
-    }   
 });
 
