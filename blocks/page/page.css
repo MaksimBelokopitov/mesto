@@ -16,33 +16,34 @@
     padding-top: 45px;
     box-sizing: border-box;
     position: relative;
+    min-width: 320px;
 }
 
-@media screen and (max-width: 1065px) {
+
+@media screen and (max-width: 1279px) {
     .page {
         padding-left: 100px;
         padding-right: 100px;
     }
 }
 
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 1079px) {
     .page {
         padding-left: 50px;
         padding-right: 50px;
     }
 }
 
-@media screen and (max-width: 681px) {
+@media screen and (max-width: 755px) {
     .page {
         padding-left: 19px;
         padding-right: 19px;
     }
 }
 
-@media screen and (max-width: 618px) {
+@media screen and (max-width: 650px) {
     .page {
-        padding-left: 0;
-        padding-right: 0;
         padding-top: 28px;
     }
 }
+

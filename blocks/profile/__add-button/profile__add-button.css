@@ -17,7 +17,7 @@
     cursor: pointer;
 }
 
-@media screen and (max-width: 618px) {
+@media screen and (max-width: 650px) {
     .profile__add-button {
         background-image: url(../../../images/Vector.png);
         width: 100%;

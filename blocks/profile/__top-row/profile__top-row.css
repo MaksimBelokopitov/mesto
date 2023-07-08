@@ -4,7 +4,7 @@
     align-items: center;
 }
 
-@media screen and (max-width: 618px) {
+@media screen and (max-width: 650px) {
     .profile__top-row {
         gap: 10px;
     }

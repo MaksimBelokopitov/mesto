@@ -4,7 +4,7 @@
     border-bottom: 1px solid rgba(84, 84, 84, .6);
 }
 
-@media screen and (max-width: 618px){
+@media screen and (max-width: 650px){
     .header {
         padding-bottom: 31px;
     }

@@ -9,11 +9,11 @@
     padding-bottom: 37px;
     display: flex;
     flex-direction: column;
-    width: 430px;
+    max-width: 430px;
     position: relative;
 }
 
-@media screen and (max-width: 618px) {
+@media screen and (max-width: 650px) {
     .popup__container {
         max-width: 282px;
         padding-top: 25px;
