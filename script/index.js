@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', function(){
     let userName = document.querySelector('.profile__name');
     let userJob = document.querySelector('.profile__job');
     let formElement = document.querySelector('.popup__container');
-    let nameInput = document.querySelector('.popup__input_type_user-name');
-    let jobInput = document.querySelector('.popup__input_type_user-job');
+    let nameInput = document.querySelector('.popup__input_type_user-name')
+    let jobInput = document.querySelector('.popup__input_type_user-job')
     let likeButtons = Array.from(document.querySelectorAll('.mesto__like-button'));
 
     openButton.addEventListener('click', function(){
