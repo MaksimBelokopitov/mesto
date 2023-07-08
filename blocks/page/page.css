@@ -37,12 +37,8 @@
     .page {
         padding-left: 19px;
         padding-right: 19px;
-    }
-}
-
-@media screen and (max-width: 650px) {
-    .page {
         padding-top: 28px;
     }
 }
+
 
