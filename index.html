@@ -97,11 +97,11 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup_type_profile">
       <div class="popup__container">
-        <button class="popup__button-close" type="button"></button>
+        <button class="popup__button-close popup__button-close_type_profile" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form action="submit" class="popup__form" name="profile">
+        <form action="submit" class="popup__form popup__form_type_profile" name="profile">
           <input
             class="popup__input popup__input_type_user-name"
             type="text"
@@ -114,6 +114,29 @@
             type="text"
             name="job"
             placeholder="Напишите информацию о себе"
+            required
+          >
+          <button class="popup__button" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_type_mesto">
+      <div class="popup__container">
+        <button class="popup__button-close popup__button-close_type_mesto" type="button"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form action="submit" class="popup__form popup__form_type_mesto" name="mesto">
+          <input
+            class="popup__input popup__input_type_mesto-name"
+            type="text"
+            name="mesto-name"
+            placeholder="Название"
+            required
+          >
+          <input
+            class="popup__input popup__input_type_mesto-image"
+            type="text"
+            name="mesto-image"
+            placeholder="Ссылка на картинку"
             required
           >
           <button class="popup__button" type="submit">Сохранить</button>
