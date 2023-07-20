@@ -25,12 +25,12 @@ const initialCards = [
   }
 ]; 
 
-    //Создание карточек//
+//Создание карточек места при загрузке страницы//
+
 const mestoList = document.querySelector('.mesto__list');
+const mestoTemplate = document.querySelector('#mesto-item').content;
 
 function createInitialCards(arr) {
-      
-  const mestoTemplate = document.querySelector('#mesto-item').content;
         
   for (let i = 0; i < arr.length; i++){
     const mestoElement = mestoTemplate.querySelector('.mesto__item').cloneNode(true);
@@ -40,88 +40,122 @@ function createInitialCards(arr) {
     const mestoName = mestoElement.querySelector('.mesto__title');
     mestoName.textContent = arr[i].name;
     mestoList.append(mestoElement); 
-  }
+  };
+};
 
-  likeCard()
-}
-
-  // Кнопка лайка//
+// Кнопка лайка у карточек места//
 
 function likeCard(){
-  const likeButtons = document.querySelectorAll('.mesto__like-button');
+  mestoList.addEventListener('click', ({target}) => {
+    const likeButton = target.closest('.mesto__like-button');
+    if ( !likeButton) return;
+    likeButton.classList.toggle('mesto__like-button_active');
+    });
+};
 
-  likeButtons.forEach((elem) => {
-    elem.addEventListener('click', () =>{
-      elem.classList.toggle('mesto__like-button_active')
-    })
-  })
-}
+likeCard();
+  
+// Удаление карточек места//
+   
+function deleteCard() {
+  mestoList.addEventListener('click', ({target}) => {
+    const deleteButton = target.closest('.mesto__delete-button');
+    const cardItem = target.closest('.mesto__item');
+    if ( !deleteButton) return;
+    cardItem.remove();
+  });
+};
 
-   // Удаление карточек//
-function deleteCard(){
+deleteCard();
 
-const mestoDeleteButton = document.querySelectorAll('.mesto__delete-button');
-      
-mestoDeleteButton.forEach((elem) => {
-  elem.addEventListener('click', () => {
-    const mestoCard = elem.closest('.mesto__item');
-    mestoCard.remove() ;
-    })
-  })
-}
-
-    //Попапы//
+//Попапы//
 
 function workPopup(){
 
-      //Открытие попапов//
+  //Открытие попапов//
+
+    //Попап редактирования профиля
+  
   const editButton = document.querySelector('.profile__edit-button');
-  const addButton = document.querySelector('.profile__add-button');
   const profileWindow = document.querySelector('.popup_type_profile');
-  const mestoWindow = document.querySelector('.popup_type_mesto');
   const userName = document.querySelector('.profile__name');
   const userJob = document.querySelector('.profile__job');
-    
+
+ 
+
   editButton.addEventListener('click', () => {
     profileWindow.classList.add('popup_opened');
     nameInput.value = userName.textContent;
     jobInput.value = userJob.textContent;
   });
-    
+
+    //Попап доваления карточки места
+  
+  const addButton = document.querySelector('.profile__add-button');
+  const mestoWindow = document.querySelector('.popup_type_mesto');
+
   addButton.addEventListener('click', () => {
     mestoWindow.classList.add('popup_opened');
   });
+
+    //Попап картинок
     
-        // Закрытие попапов //
-  const profileCloseButton = document.querySelector('.popup__button-close_type_profile');
-  const mestoCloseButton = document.querySelector('.popup__button-close_type_mesto');
+  const figureTemplate  = document.querySelector('#mesto-image').content;
+  const pageDocument = document.querySelector('.page');
+  const figureElement = figureTemplate.querySelector('.popup').cloneNode(true);
+  const figureImage = figureElement.querySelector('.popup__figure-image');
+  const figureCaption = figureElement.querySelector('.popup__figure-subtitle');
     
-  function closeProfile() {
-    profileWindow.classList.remove('popup_opened');
-  };
-    
-  function closeMesto() {
-    mestoWindow.classList.remove('popup_opened');
-  };
-        
-  profileCloseButton.addEventListener('click', () => {
-    closeProfile();
+  mestoList.addEventListener('click', ({target}) => {
+    const cardTarget = target.closest('.mesto__image');
+    if (!cardTarget) return;
+      figureImage.src = cardTarget.src;
+      figureImage.alt = cardTarget.alt;
+      figureCaption.textContent = cardTarget.alt;
+      pageDocument.append(figureElement);
+      figureElement.classList.add('popup_opened');
+    });
+ 
+  figureElement.addEventListener('click', ({target}) => {
+    const figureCloseButton = target.closest('.popup__button-close_type_figure');
+    if (!figureCloseButton) return;
+    figureElement.classList.remove('popup_opened');
   });
-    
+
+  // Закрытие попапов 
+
+    // Попап редактирования профиля
+    const profileCloseButton = document.querySelector('.popup__button-close_type_profile');
+
+    function closeProfile() {
+      profileWindow.classList.remove('popup_opened');
+    };
+         
+    profileCloseButton.addEventListener('click', () => {
+      closeProfile();
+    });
+
+    //Попап доваления карточки места
+  
+  const mestoCloseButton = document.querySelector('.popup__button-close_type_mesto');
+  
   mestoCloseButton.addEventListener('click', () => {
     closeMesto();
   });
+
+  function closeMesto() {
+    mestoWindow.classList.remove('popup_opened');
+  };
+
     
-        // Работа форм в попапах
+  // Работа форм в попапах
     
-            // Редактирование профиля//
+    // Редактирование профиля
+
   const profileFormElement = document.querySelector('.popup__form_type_profile');
-  const mestoFormElement = document.querySelector('.popup__form_type_mesto');
   const nameInput = document.querySelector('.popup__input_type_user-name')
   const jobInput = document.querySelector('.popup__input_type_user-job');
-  const cardNameInput = document.querySelector('.popup__input_type_mesto-name');
-  const cardImageInput = document.querySelector('.popup__input_type_mesto-image');
-    
+
   function handleProfileFormSubmit (evt) {
     evt.preventDefault(); 
     userName.textContent = nameInput.value;
@@ -130,10 +164,16 @@ function workPopup(){
   };  
     
   profileFormElement.addEventListener('submit', handleProfileFormSubmit);
+
+    // Добавление новой карточки
+
+  const mestoFormElement = document.querySelector('.popup__form_type_mesto');
+  const cardNameInput = document.querySelector('.popup__input_type_mesto-name');
+  const cardImageInput = document.querySelector('.popup__input_type_mesto-image');  
+  
     
-        //Создание новой карточки//
-  function createNewCard() {
-    const mestoTemplate = document.querySelector('#mesto-item').content;
+    //Создание новой карточки//
+  function createNewCard() { 
     const mestoElement = mestoTemplate.querySelector('.mesto__item').cloneNode(true);
     const mestoPicture = mestoElement.querySelector('.mesto__image');
     mestoPicture.alt = cardNameInput.value;
@@ -149,23 +189,14 @@ function workPopup(){
     evt.preventDefault();
     createNewCard();
     closeMesto();
-    deleteCard();
-    likeCard();
   };
     
-  mestoFormElement.addEventListener('submit', handleMestoFormSubmit);
-}
+  mestoFormElement.addEventListener('submit', handleMestoFormSubmit,);
+};
 
 document.addEventListener('DOMContentLoaded', function(){
    
   createInitialCards(initialCards);
-  deleteCard();
-
-  workPopup();
-  
-
-
-
-
+  workPopup();   
 });
 
