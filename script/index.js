@@ -99,12 +99,11 @@ function workPopup(){
   });
 
     //Попап картинок
-    
-  const figureTemplate  = document.querySelector('#mesto-image').content;
+  const figureTemplate = document.querySelector('#mesto-figure').content;
+  const figureWindow = figureTemplate.querySelector('.popup_type_figure').cloneNode(true);
+  const figureImage = figureWindow.querySelector('.popup__figure-image');
+  const figureCaption = figureWindow.querySelector('.popup__figure-subtitle');
   const pageDocument = document.querySelector('.page');
-  const figureElement = figureTemplate.querySelector('.popup').cloneNode(true);
-  const figureImage = figureElement.querySelector('.popup__figure-image');
-  const figureCaption = figureElement.querySelector('.popup__figure-subtitle');
     
   mestoList.addEventListener('click', ({target}) => {
     const cardTarget = target.closest('.mesto__image');
@@ -112,15 +111,9 @@ function workPopup(){
       figureImage.src = cardTarget.src;
       figureImage.alt = cardTarget.alt;
       figureCaption.textContent = cardTarget.alt;
-      pageDocument.append(figureElement);
-      figureElement.classList.add('popup_opened');
+      pageDocument.append(figureWindow)
+      figureWindow.classList.add('popup_opened');
     });
- 
-  figureElement.addEventListener('click', ({target}) => {
-    const figureCloseButton = target.closest('.popup__button-close_type_figure');
-    if (!figureCloseButton) return;
-    figureElement.classList.remove('popup_opened');
-  });
 
   // Закрытие попапов 
 
@@ -146,6 +139,19 @@ function workPopup(){
   function closeMesto() {
     mestoWindow.classList.remove('popup_opened');
   };
+
+    //Попап картинок 
+
+  const figureCloseButton = figureWindow.querySelector('.popup__button-close_type_figure');
+
+  function closeFigure() {
+    figureWindow.classList.remove('popup_opened');
+    figureWindow.remove()
+  };
+
+  figureCloseButton.addEventListener('click', ()  => {
+    closeFigure();
+  })
 
     
   // Работа форм в попапах
