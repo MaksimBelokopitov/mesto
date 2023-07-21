@@ -1,4 +1,6 @@
 .popup__figure {
+    max-width: 75vw;
+    max-height: 75vh;
     box-sizing: border-box;
     margin: 0;
     position: relative;
