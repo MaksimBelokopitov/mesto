@@ -30,171 +30,135 @@ const initialCards = [
 const mestoList = document.querySelector('.mesto__list');
 const mestoTemplate = document.querySelector('#mesto-item').content;
 
+function createCard(item) {
+  const mestoCard = mestoTemplate.querySelector('.mesto__item').cloneNode(true);
+
+  const mestoPicture = mestoCard.querySelector('.mesto__image');
+  mestoPicture.alt = item.name;
+  mestoPicture.src = item.link;
+
+  const mestoName = mestoCard.querySelector('.mesto__title');
+  mestoName.textContent = item.name;
+
+  const deleteButton = mestoCard.querySelector(".mesto__delete-button");
+  deleteButton.addEventListener("click", deleteCard);
+
+  const likeButton = mestoCard.querySelector('.mesto__like-button');
+  likeButton.addEventListener("click", likeCard);
+
+  const figureWindow = document.querySelector('.popup_type_figure');
+  const figureImage = figureWindow.querySelector('.popup__figure-image');
+  const figureCaption = figureWindow.querySelector('.popup__figure-subtitle');
+  const cardItem = mestoCard.querySelector('.mesto__image');
+  cardItem.addEventListener('click', () => {
+      figureImage.src = cardItem.src;
+      figureImage.alt = cardItem.alt;
+      figureCaption.textContent = cardItem.alt;
+      openPopup(figureWindow)
+    });
+  return  mestoCard
+};
+
 function createInitialCards(arr) {
-        
   for (let i = 0; i < arr.length; i++){
-    const mestoElement = mestoTemplate.querySelector('.mesto__item').cloneNode(true);
-    const mestoPicture = mestoElement.querySelector('.mesto__image');
-    mestoPicture.alt = arr[i].name;
-    mestoPicture.src = arr[i].link;
-    const mestoName = mestoElement.querySelector('.mesto__title');
-    mestoName.textContent = arr[i].name;
-    mestoList.append(mestoElement); 
+  const mestoElement = createCard(arr[i]); 
+  mestoList.append(mestoElement); 
   };
 };
 
 // Кнопка лайка у карточек места//
 
-function likeCard(){
-  mestoList.addEventListener('click', ({target}) => {
-    const likeButton = target.closest('.mesto__like-button');
-    if ( !likeButton) return;
-    likeButton.classList.toggle('mesto__like-button_active');
-    });
+const likeCard = (e) => {
+  const likeEl= e.target.closest(".mesto__like-button");
+  likeEl.classList.toggle('mesto__like-button_active');
 };
 
-likeCard();
-  
 // Удаление карточек места//
    
-function deleteCard() {
-  mestoList.addEventListener('click', ({target}) => {
-    const deleteButton = target.closest('.mesto__delete-button');
-    const cardItem = target.closest('.mesto__item');
-    if ( !deleteButton) return;
-    cardItem.remove();
-  });
+const deleteCard = (e) => {
+  const el = e.target.closest(".mesto__item");
+  el.remove();
 };
 
-deleteCard();
+//Открытие попапов//
+function openPopup(popup) {
+  popup.classList.add('popup_opened')
+}
+
+// Закрытие попапов 
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+}
+
+const closeButtons = document.querySelectorAll('.popup__button-close');
+closeButtons.forEach((button) => {
+  const popup = button.closest('.popup');
+  button.addEventListener('click',() => {
+    if (popup.classList.contains('popup_type_figure')){
+      const popupImage = popup.querySelector('.popup__figure-image');
+      popupImage.removeAttribute('src')
+    }
+    closePopup(popup)});
+});
 
 //Попапы//
 
-function workPopup(){
+function initPopups(){
 
-  //Открытие попапов//
-
-    //Попап редактирования профиля
-  
+  //Попап редактирования профиля
+    
   const editButton = document.querySelector('.profile__edit-button');
   const profileWindow = document.querySelector('.popup_type_profile');
   const userName = document.querySelector('.profile__name');
   const userJob = document.querySelector('.profile__job');
 
- 
-
   editButton.addEventListener('click', () => {
-    profileWindow.classList.add('popup_opened');
+    openPopup(profileWindow);
     nameInput.value = userName.textContent;
     jobInput.value = userJob.textContent;
   });
 
-    //Попап доваления карточки места
+  //Попап доваления карточки места
   
   const addButton = document.querySelector('.profile__add-button');
   const mestoWindow = document.querySelector('.popup_type_mesto');
 
   addButton.addEventListener('click', () => {
-    mestoWindow.classList.add('popup_opened');
+    openPopup(mestoWindow)
   });
-
-    //Попап картинок
-  const figureTemplate = document.querySelector('#mesto-figure').content;
-  const figureWindow = figureTemplate.querySelector('.popup_type_figure').cloneNode(true);
-  const figureImage = figureWindow.querySelector('.popup__figure-image');
-  const figureCaption = figureWindow.querySelector('.popup__figure-subtitle');
-  const pageDocument = document.querySelector('.page');
-    
-  mestoList.addEventListener('click', ({target}) => {
-    const cardTarget = target.closest('.mesto__image');
-    if (!cardTarget) return;
-      figureImage.src = cardTarget.src;
-      figureImage.alt = cardTarget.alt;
-      figureCaption.textContent = cardTarget.alt;
-      pageDocument.append(figureWindow)
-      figureWindow.classList.add('popup_opened');
-    });
-
-  // Закрытие попапов 
-
-    // Попап редактирования профиля
-    const profileCloseButton = document.querySelector('.popup__button-close_type_profile');
-
-    function closeProfile() {
-      profileWindow.classList.remove('popup_opened');
-    };
-         
-    profileCloseButton.addEventListener('click', () => {
-      closeProfile();
-    });
-
-    //Попап доваления карточки места
-  
-  const mestoCloseButton = document.querySelector('.popup__button-close_type_mesto');
-  
-  mestoCloseButton.addEventListener('click', () => {
-    closeMesto();
-  });
-
-  function closeMesto() {
-    mestoWindow.classList.remove('popup_opened');
-  };
-
-    //Попап картинок 
-
-  const figureCloseButton = figureWindow.querySelector('.popup__button-close_type_figure');
-
-  function closeFigure() {
-    figureWindow.classList.remove('popup_opened');
-    figureWindow.remove()
-  };
-
-  figureCloseButton.addEventListener('click', ()  => {
-    closeFigure();
-  })
-
     
   // Работа форм в попапах
     
     // Редактирование профиля
 
-  const profileFormElement = document.querySelector('.popup__form_type_profile');
-  const nameInput = document.querySelector('.popup__input_type_user-name')
-  const jobInput = document.querySelector('.popup__input_type_user-job');
+  const profileFormElement = document.forms['profile'];
+  const nameInput = profileFormElement.querySelector('.popup__input_type_user-name');
+  const jobInput = profileFormElement.querySelector('.popup__input_type_user-job');
 
   function handleProfileFormSubmit (evt) {
     evt.preventDefault(); 
     userName.textContent = nameInput.value;
     userJob.textContent = jobInput.value;
-    closeProfile();
+    closePopup(profileWindow);
   };  
     
   profileFormElement.addEventListener('submit', handleProfileFormSubmit);
 
-    // Добавление новой карточки
+    //Добавление новой карточки
 
-  const mestoFormElement = document.querySelector('.popup__form_type_mesto');
-  const cardNameInput = document.querySelector('.popup__input_type_mesto-name');
-  const cardImageInput = document.querySelector('.popup__input_type_mesto-image');  
-  
-    
-    //Создание новой карточки//
-  function createNewCard() { 
-    const mestoElement = mestoTemplate.querySelector('.mesto__item').cloneNode(true);
-    const mestoPicture = mestoElement.querySelector('.mesto__image');
-    mestoPicture.alt = cardNameInput.value;
-    mestoPicture.src = cardImageInput.value;
-    const mestoName = mestoElement.querySelector('.mesto__title');
-    mestoName.textContent = cardNameInput.value;
-    mestoList.prepend(mestoElement); 
-    cardNameInput.value = ''; 
-    cardImageInput.value = '';
-  };
+  const mestoFormElement = document.forms['mesto'];
+  const cardNameInput = mestoFormElement.querySelector('.popup__input_type_mesto-name');
+  const cardImageInput = mestoFormElement.querySelector('.popup__input_type_mesto-image');  
     
   function handleMestoFormSubmit(evt) {
     evt.preventDefault();
-    createNewCard();
-    closeMesto();
+    const newCard = {};
+    newCard.link = cardImageInput.value;
+    newCard.name = cardNameInput.value;
+    const mestoNewElement = createCard(newCard);
+    mestoList.prepend(mestoNewElement);
+    closePopup(mestoWindow);
+    evt.target.reset();
   };
     
   mestoFormElement.addEventListener('submit', handleMestoFormSubmit,);
@@ -203,6 +167,9 @@ function workPopup(){
 document.addEventListener('DOMContentLoaded', function(){
    
   createInitialCards(initialCards);
-  workPopup();   
+  initPopups();   
 });
+
+
+
 
