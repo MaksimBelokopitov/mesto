@@ -29,6 +29,9 @@ const initialCards = [
 
 const mestoList = document.querySelector('.mesto__list');
 const mestoTemplate = document.querySelector('#mesto-item').content;
+const figureWindow = document.querySelector('.popup_type_figure');
+const figureImage = figureWindow.querySelector('.popup__figure-image');
+const figureCaption = figureWindow.querySelector('.popup__figure-subtitle');
 
 function createCard(item) {
   const mestoCard = mestoTemplate.querySelector('.mesto__item').cloneNode(true);
@@ -46,14 +49,10 @@ function createCard(item) {
   const likeButton = mestoCard.querySelector('.mesto__like-button');
   likeButton.addEventListener("click", likeCard);
 
-  const figureWindow = document.querySelector('.popup_type_figure');
-  const figureImage = figureWindow.querySelector('.popup__figure-image');
-  const figureCaption = figureWindow.querySelector('.popup__figure-subtitle');
-  const cardItem = mestoCard.querySelector('.mesto__image');
-  cardItem.addEventListener('click', () => {
-      figureImage.src = cardItem.src;
-      figureImage.alt = cardItem.alt;
-      figureCaption.textContent = cardItem.alt;
+  mestoPicture.addEventListener('click', () => {
+      figureImage.src = mestoPicture.src;
+      figureImage.alt = mestoPicture.alt;
+      figureCaption.textContent = mestoPicture.alt;
       openPopup(figureWindow)
     });
   return  mestoCard
@@ -94,10 +93,6 @@ const closeButtons = document.querySelectorAll('.popup__button-close');
 closeButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click',() => {
-    if (popup.classList.contains('popup_type_figure')){
-      const popupImage = popup.querySelector('.popup__figure-image');
-      popupImage.removeAttribute('src')
-    }
     closePopup(popup)});
 });
 
