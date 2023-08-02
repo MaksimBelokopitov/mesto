@@ -6,6 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="./pages/index.css">
     <script defer src="./script/index.js"></script>
+    <script src="./script/validation/validation.js"></script>
   </head>
   <body class="page">
     <header class="header">
@@ -37,20 +38,32 @@
         <button class="popup__button-close popup__button-close_type_profile" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form action="submit" class="popup__form popup__form_type_profile" name="profile">
-          <input
-            class="popup__input popup__input_type_user-name"
-            type="text"
-            name="name"
-            placeholder="Введите ваше имя"
-            required
-          >
-          <input
-            class="popup__input popup__input_type_user-job"
-            type="text"
-            name="job"
-            placeholder="Напишите информацию о себе"
-            required
-          >
+          <label class="popup__form-field">
+            <input
+              class="popup__input popup__input_type_user-name"
+              type="text"
+              name="name"
+              placeholder="Введите ваше имя"
+              required
+              minlength="2"
+              maxlength="40"
+              id="input-profile-name"
+            >
+            <span class="popup__error input-profile-name-error" ></span>
+          </label>
+          <label class="popup__form-field">
+            <input
+              class="popup__input popup__input_type_user-job"
+              type="text"
+              name="job"
+              placeholder="Напишите информацию о себе"
+              required
+              minlength="2"
+              maxlength="200"
+              id="input-profile-job"
+            >
+            <span class="popup__error input-profile-job-error" ></span>
+          </label>
           <button class="popup__button" type="submit">Сохранить</button>
         </form>
       </div>
@@ -60,20 +73,30 @@
         <button class="popup__button-close popup__button-close_type_mesto" type="button"></button>
         <h2 class="popup__title">Новое место</h2>
         <form action="submit" class="popup__form popup__form_type_mesto" name="mesto">
-          <input
-            class="popup__input popup__input_type_mesto-name"
-            type="text"
-            name="mesto-name"
-            placeholder="Название"
-            required
-          >
-          <input
-            class="popup__input popup__input_type_mesto-image"
-            type="text"
-            name="mesto-image"
-            placeholder="Ссылка на картинку"
-            required
-          >
+          <label class="popup__form-field">
+            <input
+              class="popup__input popup__input_type_mesto-name"
+              type="text"
+              name="mesto-name"
+              placeholder="Название"
+              required
+              minlength="2"
+              maxlength="30"
+              id="input-mesto-name"
+            >
+            <span class="popup__error input-mesto-name-error" ></span>
+          </label>
+          <label class="popup__form-field">
+            <input
+              class="popup__input popup__input_type_mesto-image"
+              type="url"
+              name="mesto-image"
+              placeholder="Ссылка на картинку"
+              required
+              id="input-mesto-image"
+            >
+            <span class="popup__error input-mesto-image-error" ></span>
+          </label>
           <button class="popup__button" type="submit">Сохранить</button>
         </form>
       </div>
