@@ -96,6 +96,28 @@ closeButtons.forEach((button) => {
     closePopup(popup)});
 });
 
+function closePopupOverlay(popupWindow){
+  popupWindow.addEventListener('click', (evt) => {
+    if( evt.currentTarget === evt.target){
+      closePopup(popupWindow);
+    };
+  });
+};
+
+function closePopupEsc(popupWindow){
+  document.addEventListener('keydown', function(evt) {
+    if( evt.key === 'Escape'){
+      closePopup(popupWindow);
+    };
+  });
+};
+
+const popupArr = document.querySelectorAll('.popup');
+popupArr.forEach((popup) =>{
+  closePopupOverlay(popup);
+  closePopupEsc(popup);
+});
+
 //Попапы//
 
 function initPopups(){
@@ -111,6 +133,7 @@ function initPopups(){
     openPopup(profileWindow);
     nameInput.value = userName.textContent;
     jobInput.value = userJob.textContent;
+  
   });
 
   //Попап доваления карточки места
@@ -157,6 +180,8 @@ function initPopups(){
   };
     
   mestoFormElement.addEventListener('submit', handleMestoFormSubmit,);
+
+
 };
 
 document.addEventListener('DOMContentLoaded', function(){
