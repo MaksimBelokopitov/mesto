@@ -38,7 +38,6 @@ const checkInputValidity = (
         errorClass);
       }
     else {
-      console.log(inputElement.validity.valid)
       hideError(
         formElement, 
         inputElement, 
@@ -53,19 +52,27 @@ const hasInvalidInput = (inputList) => {
   }); 
   }
 
+  const enableSubmitButton = (buttonElement, inactiveButtonClass) => {
+    buttonElement.classList.add(inactiveButtonClass);
+    buttonElement.setAttribute('disabled', true);
+  };
+
+  const disableSubmitButton = (buttonElement, inactiveButtonClass) => {
+    buttonElement.classList.remove(inactiveButtonClass);
+    buttonElement.removeAttribute('disabled');
+  };
+
 const toggleButtonState = (
   inputList, 
   buttonElement, 
   inactiveButtonClass) => {
     if (hasInvalidInput(inputList)){
-      buttonElement.classList.add(inactiveButtonClass);
-      buttonElement.setAttribute('disabled', true);
+      enableSubmitButton(buttonElement, inactiveButtonClass);  
     }
     else {
-      buttonElement.classList.remove(inactiveButtonClass);
-      buttonElement.removeAttribute('disabled');
+      disableSubmitButton(buttonElement, inactiveButtonClass);
     }
-}
+};
 
 function setEventListener(
   formElement, 
@@ -85,6 +92,9 @@ function setEventListener(
           inputErrorClass,
           errorClass);
         toggleButtonState(inputList, buttonElement, inactiveButtonClass);
+       formElement.addEventListener('reset',() => {
+        enableSubmitButton(buttonElement, inactiveButtonClass);
+       });
       });
     });
   };
