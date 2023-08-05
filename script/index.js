@@ -1,29 +1,3 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-]; 
 
 //Создание карточек места при загрузке страницы//
 
@@ -81,42 +55,33 @@ const deleteCard = (e) => {
 
 //Открытие попапов//
 function openPopup(popup) {
-  popup.classList.add('popup_opened')
+  popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupEsc);
 }
 
 // Закрытие попапов 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupEsc);
 }
 
-const closeButtons = document.querySelectorAll('.popup__button-close');
-closeButtons.forEach((button) => {
-  const popup = button.closest('.popup');
-  button.addEventListener('click',() => {
-    closePopup(popup)});
-});
+const popupList = Array.from(document.querySelectorAll('.popup'));
+popupList.forEach((popup) => {
+  popup.addEventListener('mouseup', (event) => { 
+    const targetClassList = event.target.classList; 
+    if (targetClassList.contains('popup') || targetClassList.contains('popup__button-close')) { 
+      closePopup(popup); 
+    }
+  })
+})
 
-function closePopupOverlay(popupWindow){
-  popupWindow.addEventListener('click', (evt) => {
-    if( evt.currentTarget === evt.target){
-      closePopup(popupWindow);
-    };
-  });
-};
-
-function closePopupEsc(popupWindow){
-  document.addEventListener('keydown', function(evt) {
+const closePopupEsc =(evt) =>{
     if( evt.key === 'Escape'){
-      closePopup(popupWindow);
+      const popupActive =document.querySelector('.popup_opened');
+      closePopup(popupActive);
     };
-  });
 };
 
-const popupArr = document.querySelectorAll('.popup');
-popupArr.forEach((popup) =>{
-  closePopupOverlay(popup);
-  closePopupEsc(popup);
-});
 
 //Попапы//
 
@@ -133,7 +98,6 @@ function initPopups(){
     openPopup(profileWindow);
     nameInput.value = userName.textContent;
     jobInput.value = userJob.textContent;
-  
   });
 
   //Попап доваления карточки места
@@ -142,7 +106,7 @@ function initPopups(){
   const mestoWindow = document.querySelector('.popup_type_mesto');
 
   addButton.addEventListener('click', () => {
-    openPopup(mestoWindow)
+    openPopup(mestoWindow);
   });
     
   // Работа форм в попапах
@@ -180,8 +144,6 @@ function initPopups(){
   };
     
   mestoFormElement.addEventListener('submit', handleMestoFormSubmit,);
-
-
 };
 
 document.addEventListener('DOMContentLoaded', function(){
