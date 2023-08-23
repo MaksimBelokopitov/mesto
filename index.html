@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./pages/index.css">
-    <script defer src="./script/index.js"></script>
-    <script src="./script/validation/validation.js"></script>
-    <script src="./script/cards/cards.js"></script>
+  
   </head>
   <body class="page">
     <header class="header">
@@ -110,7 +108,7 @@
         </form>
       </div>
     </div>
-    <template id="mesto-item">
+    <template class="mesto-template">
         <li class="mesto__item">
           <button class="mesto__delete-button"></button>
           <img
@@ -129,5 +127,8 @@
           <figcaption class="popup__figure-subtitle"></figcaption>
         </figure>
       </div>
+      <script type ="module" src="./script/index.js"></script>
+      <script type ="module" src="./script/validation/validation.js"></script>
+      <script type ="module" src="./script/Card/Card.js"></script>
   </body>
 </html>

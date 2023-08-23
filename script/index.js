@@ -1,69 +1,14 @@
+import { Card, mestoList } from "./Card/Card.js";
 
-//Создание карточек места при загрузке страницы//
-
-const mestoList = document.querySelector('.mesto__list');
-const mestoTemplate = document.querySelector('#mesto-item').content;
-const figureWindow = document.querySelector('.popup_type_figure');
-const figureImage = figureWindow.querySelector('.popup__figure-image');
-const figureCaption = figureWindow.querySelector('.popup__figure-subtitle');
-
-function createCard(item) {
-  const mestoCard = mestoTemplate.querySelector('.mesto__item').cloneNode(true);
-
-  const mestoPicture = mestoCard.querySelector('.mesto__image');
-  mestoPicture.alt = item.name;
-  mestoPicture.src = item.link;
-
-  const mestoName = mestoCard.querySelector('.mesto__title');
-  mestoName.textContent = item.name;
-
-  const deleteButton = mestoCard.querySelector(".mesto__delete-button");
-  deleteButton.addEventListener("click", deleteCard);
-
-  const likeButton = mestoCard.querySelector('.mesto__like-button');
-  likeButton.addEventListener("click", likeCard);
-
-  mestoPicture.addEventListener('click', () => {
-      figureImage.src = mestoPicture.src;
-      figureImage.alt = mestoPicture.alt;
-      figureCaption.textContent = mestoPicture.alt;
-      openPopup(figureWindow)
-    });
-  return  mestoCard
-};
-
-function createInitialCards(arr) {
-  for (let i = 0; i < arr.length; i++){
-  const mestoElement = createCard(arr[i]); 
-  mestoList.append(mestoElement); 
-  };
-};
-
-// Кнопка лайка у карточек места//
-
-const likeCard = (e) => {
-  const likeEl= e.target.closest(".mesto__like-button");
-  likeEl.classList.toggle('mesto__like-button_active');
-};
-
-// Удаление карточек места//
-   
-const deleteCard = (e) => {
-  const el = e.target.closest(".mesto__item");
-  el.remove();
-};
-
-//Открытие попапов//
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupEsc);
 }
 
-// Закрытие попапов 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupEsc);
-}
+};
 
 const popupList = Array.from(document.querySelectorAll('.popup'));
 popupList.forEach((popup) => {
@@ -71,9 +16,9 @@ popupList.forEach((popup) => {
     const targetClassList = event.target.classList; 
     if (targetClassList.contains('popup') || targetClassList.contains('popup__button-close')) { 
       closePopup(popup); 
-    }
-  })
-})
+    };
+  });
+});
 
 const closePopupEsc =(evt) =>{
     if( evt.key === 'Escape'){
@@ -134,11 +79,12 @@ function initPopups(){
     
   function handleMestoFormSubmit(evt) {
     evt.preventDefault();
-    const newCard = {};
-    newCard.link = cardImageInput.value;
-    newCard.name = cardNameInput.value;
-    const mestoNewElement = createCard(newCard);
-    mestoList.prepend(mestoNewElement);
+    const newCardObj = {};
+    newCardObj.link = cardImageInput.value;
+    newCardObj.name = cardNameInput.value;
+    const card = new Card(newCard, '.mesto-template');
+    const cardElement = card.generateCard();
+    mestoList.prepend(cardElement);
     closePopup(mestoWindow);
     evt.target.reset();
   };
@@ -147,10 +93,10 @@ function initPopups(){
 };
 
 document.addEventListener('DOMContentLoaded', function(){
-   
-  createInitialCards(initialCards);
-  initPopups();   
+   initPopups();   
 });
+
+export {openPopup, closePopup}
 
 
 
