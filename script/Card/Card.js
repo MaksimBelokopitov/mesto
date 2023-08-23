@@ -1,7 +1,5 @@
 import {openPopup} from "../index.js";
 
-
-
 const initialCards = [
     {
       name: 'Архыз',
@@ -33,10 +31,8 @@ const initialCards = [
   const figureWindow = document.querySelector('.popup_type_figure');
   const figureImage = figureWindow.querySelector('.popup__figure-image');
   const figureCaption = figureWindow.querySelector('.popup__figure-subtitle');
-  const c = (a) =>{console.log(a);}
 
-
- export class Card {
+  export class Card {
     constructor(data, temlateSelector){
       this._name = data.name;
       this._link = data.link;

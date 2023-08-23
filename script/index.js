@@ -1,4 +1,17 @@
 import { Card, mestoList } from "./Card/Card.js";
+import { FormValidation} from "./FormValidation/FormValidation.js";
+
+
+const settingValidation = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
+
+//Открытие и закрытие попапов//
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -27,6 +40,14 @@ const closePopupEsc =(evt) =>{
     };
 };
 
+//Валидация форм//
+
+const formList = document.querySelectorAll('.popup__form');
+
+formList.forEach((form) => {
+  const validation = new FormValidation( settingValidation, form);
+  validation.enableValidation();
+})
 
 //Попапы//
 
@@ -82,7 +103,7 @@ function initPopups(){
     const newCardObj = {};
     newCardObj.link = cardImageInput.value;
     newCardObj.name = cardNameInput.value;
-    const card = new Card(newCard, '.mesto-template');
+    const card = new Card(newCardObj, '.mesto-template');
     const cardElement = card.generateCard();
     mestoList.prepend(cardElement);
     closePopup(mestoWindow);
