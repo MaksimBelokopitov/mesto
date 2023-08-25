@@ -1,19 +1,10 @@
-import { Card, mestoList } from "./Card/Card.js";
+import { Card } from "./Card/Card.js";
 import { FormValidation} from "./FormValidation/FormValidation.js";
-
-
-const settingValidation = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-};
-
+import { initialCards } from "./cards/cards.js";
+import { settingValidation } from "./settingValidation/settingValidation.js";
 //Открытие и закрытие попапов//
 
-function openPopup(popup) {
+ function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupEsc);
 }
@@ -21,6 +12,22 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupEsc);
+  deleteError(popup)
+};
+
+function deleteError(popup) {
+  const popupForm = popup.querySelector('.popup__form');
+  const inputList = popupForm.querySelectorAll('.popup__form-field');
+  inputList.forEach((input) => {
+    const errorElement = input.querySelector('.popup__error');
+    if (errorElement.classList.contains('popup__error_visible')){
+      errorElement.classList.remove('popup__error_visible')
+    };
+    const inputElement = input.querySelector('.popup__input');
+    if (inputElement.classList.contains('popup__input_type_error')){
+      inputElement.classList.remove('popup__input_type_error');
+    };
+  });
 };
 
 const popupList = Array.from(document.querySelectorAll('.popup'));
@@ -40,6 +47,15 @@ const closePopupEsc =(evt) =>{
     };
 };
 
+const mestoList = document.querySelector('.mesto__list');
+
+initialCards.forEach((item) => {
+  const card = new Card (item, '.mesto-template');
+  const cardElement = card.generateCard();
+
+  mestoList.append(cardElement);
+});
+
 //Валидация форм//
 
 const formList = document.querySelectorAll('.popup__form');
@@ -51,7 +67,6 @@ formList.forEach((form) => {
 
 //Попапы//
 
-function initPopups(){
 
   //Попап редактирования профиля
     
@@ -111,13 +126,10 @@ function initPopups(){
   };
     
   mestoFormElement.addEventListener('submit', handleMestoFormSubmit,);
-};
 
-document.addEventListener('DOMContentLoaded', function(){
-   initPopups();   
-});
 
-export {openPopup, closePopup}
+
+export {openPopup}
 
 
 
