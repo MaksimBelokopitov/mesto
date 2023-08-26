@@ -1,8 +1,4 @@
-import { openPopup } from "../index.js";
-
-  const figureWindow = document.querySelector('.popup_type_figure');
-  const figureImage = figureWindow.querySelector('.popup__figure-image');
-  const figureCaption = figureWindow.querySelector('.popup__figure-subtitle');
+import { openPopup, figureWindow, figureImage, figureCaption } from "../index.js";
 
   export class Card {
     constructor(data, temlateSelector){
@@ -33,17 +29,22 @@ import { openPopup } from "../index.js";
 
     generateCard() {
       this._element = this._getTemplate();
+      this._picture = this._element.querySelector('.mesto__image');
+
       this._element.querySelector('.mesto__like-button').addEventListener('click', () => {
         this._likeCard()
       });
+
       this._element.querySelector('.mesto__delete-button').addEventListener('click', () => {
         this._deleteCard()
       });
-      this._element.querySelector('.mesto__image').addEventListener('click', () => {
+
+      this._picture.addEventListener('click', () => {
         this._handleOpenPopup();
       })
-      this._element.querySelector('.mesto__image').src = this._link;
-      this._element.querySelector('.mesto__image').alt = this._name;
+      
+      this._picture.src = this._link;
+      this._picture.alt = this._name;
       this._element.querySelector('.mesto__title').textContent = this._name;
   
       return this._element;

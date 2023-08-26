@@ -2,6 +2,13 @@ import { Card } from "./Card/Card.js";
 import { FormValidation} from "./FormValidation/FormValidation.js";
 import { initialCards } from "./cards/cards.js";
 import { settingValidation } from "./settingValidation/settingValidation.js";
+
+
+const figureWindow = document.querySelector('.popup_type_figure');
+const figureImage = figureWindow.querySelector('.popup__figure-image');
+const figureCaption = figureWindow.querySelector('.popup__figure-subtitle');
+
+
 //Открытие и закрытие попапов//
 
  function openPopup(popup) {
@@ -12,23 +19,9 @@ import { settingValidation } from "./settingValidation/settingValidation.js";
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupEsc);
-  deleteError(popup)
 };
 
-function deleteError(popup) {
-  const popupForm = popup.querySelector('.popup__form');
-  const inputList = popupForm.querySelectorAll('.popup__form-field');
-  inputList.forEach((input) => {
-    const errorElement = input.querySelector('.popup__error');
-    if (errorElement.classList.contains('popup__error_visible')){
-      errorElement.classList.remove('popup__error_visible')
-    };
-    const inputElement = input.querySelector('.popup__input');
-    if (inputElement.classList.contains('popup__input_type_error')){
-      inputElement.classList.remove('popup__input_type_error');
-    };
-  });
-};
+
 
 const popupList = Array.from(document.querySelectorAll('.popup'));
 popupList.forEach((popup) => {
@@ -64,6 +57,7 @@ formList.forEach((form) => {
   const validation = new FormValidation( settingValidation, form);
   validation.enableValidation();
 })
+
 
 //Попапы//
 
@@ -127,9 +121,7 @@ formList.forEach((form) => {
     
   mestoFormElement.addEventListener('submit', handleMestoFormSubmit,);
 
-
-
-export {openPopup}
+export {openPopup, figureWindow, figureImage, figureCaption}
 
 
 

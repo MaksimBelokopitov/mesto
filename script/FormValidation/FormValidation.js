@@ -12,29 +12,26 @@ class FormValidation {
     this._buttonElement = this._form.querySelector(this._submitButtonSelector);
   };
 
-  _showError(inputElement,formElement, errorMessage){
+  _showError(inputElement, errorMessage){
     inputElement.classList.add(this._inputErrorClass);
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    const errorElement = inputElement.closest('.popup__form-field').querySelector('.popup__error');
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this._errorClass);
   };
 
-  _hideError(formElement, inputElement){
+  _hideError(inputElement){
     inputElement.classList.remove(this._inputErrorClass);
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    const errorElement = inputElement.closest('.popup__form-field').querySelector('.popup__error');
     errorElement.textContent = '';
     errorElement.classList.remove(this._errorClass);
   };
 
-  _checkInputValidity(
-    formElement, 
-    inputElement,
-  ){
+  _checkInputValidity(inputElement){
     if (!inputElement.validity.valid){
-      this._showError(inputElement, formElement,inputElement.validationMessage);
+      this._showError(inputElement,inputElement.validationMessage);
       }
     else {
-      this._hideError(formElement, inputElement,);
+      this._hideError(inputElement);
     };
   };
 
@@ -64,24 +61,27 @@ class FormValidation {
   };
 
   _setEventListener (){
-      this._toggleButtonState();
-      this._inputList.forEach((inputElement) =>{
-        inputElement.addEventListener('input', () => {
-          this._checkInputValidity(this._form, inputElement);
-          this._toggleButtonState();
-          this._form.addEventListener('reset',() => {
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) =>{
+      inputElement.addEventListener('input', () => {
+        this._checkInputValidity(inputElement);
+        this._toggleButtonState();
+        this._form.addEventListener('reset',() => {
           this._enableSubmitButton();
-         });
         });
+        inputElement.onblur = () => {
+          this._hideError(inputElement)
+        }
       });
-    };
+    });
+  };
 
-    enableValidation () {
-      this._form.addEventListener('submit', (evt) => {
-        evt.preventDefault();
-      });
-        this._setEventListener();
-     };
+  enableValidation () {
+    this._form.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+    });
+    this._setEventListener();  
+  };    
 };
 
 export {FormValidation};
