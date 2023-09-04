@@ -1,6 +1,6 @@
-import { openPopup, figureWindow, figureImage, figureCaption } from "../index.js";
+import PopupWithImage from "../PopupWithImage/PopupWithImage.js";
 
-  export class Card {
+  export default class Card {
     constructor(data, temlateSelector){
       this._name = data.name;
       this._link = data.link;
@@ -21,10 +21,8 @@ import { openPopup, figureWindow, figureImage, figureCaption } from "../index.js
     };
 
     _handleOpenPopup(){
-        figureImage.src = this._link;
-        figureImage.alt = this._name;
-        figureCaption.textContent = this._name;
-        openPopup(figureWindow);
+        this._popup = new PopupWithImage('.popup_type_figure', this._link, this._name);
+        this._popup.open();
     };
 
     generateCard() {
