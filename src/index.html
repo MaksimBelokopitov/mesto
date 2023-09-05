@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./pages/index.css">
   
   </head>
   <body class="page">
@@ -13,7 +12,7 @@
     </header>
     <main class="main">
       <section class="profile">
-        <img src="./images/image.jpg" alt="Фото профиля" class="profile__avatar">
+        <img src="<%=require('./images/image.jpg')%>" alt="Фото профиля" class="profile__avatar">
         <div class="profile__info">
           <div class="profile__top-row">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -127,6 +126,6 @@
           <figcaption class="popup__figure-subtitle"></figcaption>
         </figure>
       </div>
-      <script type ="module" src="./script/index.js"></script>
+     
   </body>
 </html>

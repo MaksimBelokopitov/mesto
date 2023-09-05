@@ -1,16 +1,17 @@
-import  Card  from "../components/Card/Card.js";
-import FormValidation from "../components/FormValidation/FormValidation.js";
-import initialCards from "../utils/cards/cards.js";
-import settingValidation from "../utils/settingValidation/settingValidation.js";
-import Section from "../components/Section/Section.js";
-import PopupWithForm from "../components/PopupWithForm/PopupWithForm.js";
-import UserInfo from "../components/UserInfo/UserInfo.js";
-import PopupWithImage from "../components/PopupWithImage/PopupWithImage.js";
+import './pages/index.css'
+import  Card  from "./components/Card/Card.js";
+import FormValidation from "./components/FormValidation/FormValidation.js";
+import initialCards from "./utils/cards/cards.js";
+import settingValidation from "./utils/settingValidation/settingValidation.js";
+import Section from "./components/Section/Section.js";
+import PopupWithForm from "./components/PopupWithForm/PopupWithForm.js";
+import UserInfo from "./components/UserInfo/UserInfo.js";
+import PopupWithImage from "./components/PopupWithImage/PopupWithImage.js";
 import { 
   formList, 
   editButton,
   addButton,
- } from "../utils/constants.js";
+ } from "./utils/constants.js";
 
 const cardList = new Section({
   items: initialCards,
