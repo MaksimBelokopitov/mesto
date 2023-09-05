@@ -1,7 +1,7 @@
-import PopupWithImage from "../PopupWithImage/PopupWithImage.js";
 
   export default class Card {
-    constructor(data, temlateSelector){
+    constructor(data, temlateSelector, {handleCardClick}){
+      this._handleCardClick = handleCardClick;
       this._name = data.name;
       this._link = data.link;
       this._templateSelector = temlateSelector;
@@ -20,11 +20,6 @@ import PopupWithImage from "../PopupWithImage/PopupWithImage.js";
       this._element = null;
     };
 
-    _handleOpenPopup(){
-        this._popup = new PopupWithImage('.popup_type_figure', this._link, this._name);
-        this._popup.open();
-    };
-
     generateCard() {
       this._element = this._getTemplate();
       this._picture = this._element.querySelector('.mesto__image');
@@ -38,7 +33,7 @@ import PopupWithImage from "../PopupWithImage/PopupWithImage.js";
       });
 
       this._picture.addEventListener('click', () => {
-        this._handleOpenPopup();
+        this._handleCardClick();
       })
       
       this._picture.src = this._link;

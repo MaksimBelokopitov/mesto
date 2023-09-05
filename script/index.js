@@ -3,33 +3,29 @@ import FormValidation from "../components/FormValidation/FormValidation.js";
 import initialCards from "../utils/cards/cards.js";
 import settingValidation from "../utils/settingValidation/settingValidation.js";
 import Section from "../components/Section/Section.js";
-import { popupList, 
-  mestoList, 
+import PopupWithForm from "../components/PopupWithForm/PopupWithForm.js";
+import UserInfo from "../components/UserInfo/UserInfo.js";
+import PopupWithImage from "../components/PopupWithImage/PopupWithImage.js";
+import { 
   formList, 
   editButton,
-  nameInput,
-  jobInput,
   addButton,
-  mestoWindow,
-  profileFormElement,
-  mestoFormElement,
-  cardNameInput,
-  cardImageInput ,
-userJob,
-userName } from "../utils/constants.js";
-import PopupWithForm from "../components/PopupWithForm/PopupWithForm.js";
-
-
+ } from "../utils/constants.js";
 
 const cardList = new Section({
   items: initialCards,
   renderer: (item) =>{
-    const card = new Card (item, '.mesto-template');
+    const card = new Card (item, '.mesto-template', {
+      handleCardClick: () => {
+        card._popup = new PopupWithImage('.popup_type_figure', card._link,card._name);
+        card._popup.open();
+      }
+    });
     const cardElement = card.generateCard();
     cardList.addItem(cardElement);
   }
 },
-  mestoList
+'.mesto__list'
 );
 
 cardList.renderItems()
@@ -45,36 +41,39 @@ formList.forEach((form) => {
 
 
   //Попап редактирования профиля
- 
+  const userInfo = new UserInfo ({userSelector: '.profile__name', aboutSelector: '.profile__job'});
+
   const popupUser = new PopupWithForm ('.popup_type_profile',
-  {handleFormSubmit: (data) =>{
-    userJob.textContent = data.about;
-    userName.textContent = data.user;
+  {handleFormSubmit: () =>{
+    userInfo.setUserInfo(popupUser._inputValues);
     popupUser.close();
-  }
+    }
   });
- 
+  popupUser.setEventListener();
 
   editButton.addEventListener('click', () => {
-   
     popupUser.open();
-    popupUser.setEventListener();
+    popupUser.setInputValues(userInfo.getUserInfo())
+    
   });
 
   //Попап доваления карточки места
   const popupMesto = new PopupWithForm('.popup_type_mesto',
-  {handleFormSubmit: (data) => {
-    const card = new Card(data, '.mesto-template');
+  {handleFormSubmit: () => {
+    const card = new Card(popupMesto._inputValues, '.mesto-template', {
+      handleCardClick: () => {
+        card._popup = new PopupWithImage('.popup_type_figure', card._link,card._name);
+        card._popup.open();
+      }
+    });
     const cardElement = card.generateCard();
     cardList.addNewItem(cardElement);
     popupMesto.close();
   }});
- 
+  popupMesto.setEventListener()
 
   addButton.addEventListener('click', () => {
-   
     popupMesto.open();
-    popupMesto.setEventListener()
   });
     
   
