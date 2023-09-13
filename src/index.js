@@ -13,23 +13,30 @@ import {
   addButton,
  } from "./utils/constants.js";
 
+ const popupImage = new PopupWithImage('.popup_type_figure');
+
+
+ function createCard(item, selector){
+  const card = new Card (item, selector, {
+    handleCardClick: () => {
+      popupImage.open(card._link,card._name);
+    }
+  });
+    const cardElement = card.generateCard();
+    return cardElement;
+ }
+
 const cardList = new Section({
   items: initialCards,
-  renderer: (item) =>{
-    const card = new Card (item, '.mesto-template', {
-      handleCardClick: () => {
-        card._popup = new PopupWithImage('.popup_type_figure', card._link,card._name);
-        card._popup.open();
-      }
-    });
-    const cardElement = card.generateCard();
-    cardList.addItem(cardElement);
+  renderer: (item) => {
+    cardList.addItem(createCard(item, '.mesto-template'));
   }
 },
 '.mesto__list'
 );
 
-cardList.renderItems()
+cardList.renderItems();
+
 
 
 formList.forEach((form) => {
@@ -46,7 +53,7 @@ formList.forEach((form) => {
 
   const popupUser = new PopupWithForm ('.popup_type_profile',
   {handleFormSubmit: () =>{
-    userInfo.setUserInfo(popupUser._inputValues);
+    userInfo.setUserInfo(popupUser.inputValues);
     popupUser.close();
     }
   });
@@ -61,16 +68,10 @@ formList.forEach((form) => {
   //Попап доваления карточки места
   const popupMesto = new PopupWithForm('.popup_type_mesto',
   {handleFormSubmit: () => {
-    const card = new Card(popupMesto._inputValues, '.mesto-template', {
-      handleCardClick: () => {
-        card._popup = new PopupWithImage('.popup_type_figure', card._link,card._name);
-        card._popup.open();
-      }
-    });
-    const cardElement = card.generateCard();
-    cardList.addNewItem(cardElement);
+    cardList.addNewItem(createCard(popupMesto.inputValues, '.mesto-template'));
     popupMesto.close();
   }});
+  
   popupMesto.setEventListener()
 
   addButton.addEventListener('click', () => {

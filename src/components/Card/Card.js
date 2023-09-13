@@ -12,7 +12,7 @@
     };
 
     _likeCard(){
-      this._element.querySelector('.mesto__like-button').classList.toggle('mesto__like-button_active');
+      this._likeButton.classList.toggle('mesto__like-button_active');
     };
 
     _deleteCard(){
@@ -20,21 +20,27 @@
       this._element = null;
     };
 
-    generateCard() {
-      this._element = this._getTemplate();
-      this._picture = this._element.querySelector('.mesto__image');
-
-      this._element.querySelector('.mesto__like-button').addEventListener('click', () => {
+    _setEventListeners(){
+       this._likeButton.addEventListener('click', () => {
         this._likeCard()
       });
 
-      this._element.querySelector('.mesto__delete-button').addEventListener('click', () => {
+       this._deleteButton.addEventListener('click', () => {
         this._deleteCard()
       });
 
       this._picture.addEventListener('click', () => {
         this._handleCardClick();
       })
+    }
+
+    generateCard() {
+      this._element = this._getTemplate();
+      this._picture = this._element.querySelector('.mesto__image');
+      this._likeButton = this._element.querySelector('.mesto__like-button');
+      this._deleteButton = this._element.querySelector('.mesto__delete-button');
+      
+      this._setEventListeners();
       
       this._picture.src = this._link;
       this._picture.alt = this._name;
