@@ -66,13 +66,13 @@ export default class FormValidation {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
         this._toggleButtonState();
-        this._form.addEventListener('reset',() => {
-          this._enableSubmitButton();
-        });
-        inputElement.onblur = () => {
-          this._hideError(inputElement)
-        }
       });
+      inputElement.onblur = () => {
+        this._hideError(inputElement)
+      }
+    });
+    this._form.addEventListener('reset',() => {
+      this._enableSubmitButton();
     });
   };
 

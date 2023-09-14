@@ -2,8 +2,8 @@
   export default class Card {
     constructor(data, temlateSelector, {handleCardClick}){
       this._handleCardClick = handleCardClick;
-      this._name = data.name;
-      this._link = data.link;
+      this.name = data.name;
+      this.link = data.link;
       this._templateSelector = temlateSelector;
     }
     _getTemplate(){
@@ -42,9 +42,9 @@
       
       this._setEventListeners();
       
-      this._picture.src = this._link;
-      this._picture.alt = this._name;
-      this._element.querySelector('.mesto__title').textContent = this._name;
+      this._picture.src = this.link;
+      this._picture.alt = this.name;
+      this._element.querySelector('.mesto__title').textContent = this.name;
   
       return this._element;
     };

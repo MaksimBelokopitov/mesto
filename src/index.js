@@ -19,7 +19,7 @@ import {
  function createCard(item, selector){
   const card = new Card (item, selector, {
     handleCardClick: () => {
-      popupImage.open(card._link,card._name);
+      popupImage.open(card.link, card.name);
     }
   });
     const cardElement = card.generateCard();
