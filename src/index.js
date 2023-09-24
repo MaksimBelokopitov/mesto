@@ -113,8 +113,8 @@ editButton.addEventListener('click', () => {
       }
     },
     {openDeletePopup: () => {
-     deleteP.open(card.id, card.element)
-      deleteP.setEventListener()
+     deletePopup.open(card.id, card.element)
+      deletePopup.setEventListener()
     }
   });
     const cardElement = card.generateCard();
@@ -146,7 +146,7 @@ formList.forEach((form) => {
   });
 
 
-  const deleteP = new PopupDelete('.popup_type_delete', {
+  const deletePopup = new PopupDelete('.popup_type_delete', {
     handleFormSubmit: (card, id) =>{
       api.deleteCard(id)
       .then(() => {
