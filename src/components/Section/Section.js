@@ -13,9 +13,8 @@ export default class Section {
     };
 
     renderItems(data, userId) {
-        this.userId = userId
         data.forEach((item) => {
-          this._renderer(item, this.userId);
+          this._renderer(item, userId);
         })
     }
 }

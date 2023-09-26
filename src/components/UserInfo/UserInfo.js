@@ -7,7 +7,6 @@ export default class UserInfo {
 
     getUserInfo(){
         this._userInfo = {};
-       
         this._userInfo.name = this._user.textContent;
         this._userInfo.about = this._about.textContent;
         return this._userInfo;
@@ -21,14 +20,4 @@ export default class UserInfo {
     setUserAvatar(data) {
         this._avatar.src = data;
     }
-
-    getUserId(data){
-        const userId = data._id;
-        console.log(userId);
-        return userId
-    }
-
-
-
-    
 }

@@ -20,14 +20,32 @@
       return cardElement;
     };
 
-    _likeCard(){
-      this._likeButton.classList.toggle('mesto__like-button_active');
+    deleteCard(){
+      this.element.remove();
+      this.element = null;
+    }
+
+    likeCard(){
+      this._likeButton.classList.add('mesto__like-button_active');
     };
+
+    dislikeCard(){
+      this._likeButton.classList.remove('mesto__like-button_active');
+    }
 
     _getUserCard(){
       if (this._userId !== this._ownerId){
         this._deleteButton.remove()
       }
+    }
+
+    _setInitaialLike(){
+      this._data.likes.forEach(element => {
+        if(element._id === this._userId){
+          this.likeCard()
+        }
+        
+      });
     }
 
     likeCounter(data){
@@ -39,11 +57,9 @@
       this._likeButton.addEventListener('click', () => {
         if(this._likeButton.classList.contains('mesto__like-button_active')){
           this._dislike();
-          this._likeCard()
         }
         else {
           this._like();
-          this._likeCard()
         }
       });
 
@@ -54,6 +70,8 @@
       this._picture.addEventListener('click', () => {
         this._handleCardClick();
       })
+
+      this._setInitaialLike()
     }
 
     generateCard() {
