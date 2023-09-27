@@ -6,10 +6,10 @@ export default class PopupDelete extends Popup{
         this._handleFormSubmit = handleFormSubmit;
     };
 
-    open(id, {handleCardDelete}){
+    open(id, card){
         super.open();
         this._id = id;
-        this._handleCardDelete = handleCardDelete
+        this._card = card;
     };
 
     close(){
@@ -20,7 +20,7 @@ export default class PopupDelete extends Popup{
         super.setEventListener();
         this._form.addEventListener('submit', (event) => {
             event.preventDefault();
-            this._handleFormSubmit(this._id);
+            this._handleFormSubmit(this._id, this._card);
         });
     };
 };

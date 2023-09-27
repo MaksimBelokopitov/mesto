@@ -53,18 +53,20 @@ let userId
     })
 
   const popupAvatar = new PopupWithForm('.popup_type_avatar', 
-    {handleFormSubmit: () => {
+    {handleFormSubmit: (data) => {
+      
       renderLoaiding(popupAvatar.button, true)
-      api.setUserAvatar(popupAvatar.inputValues.avatar)
+  
+      api.setUserAvatar(data.avatar)
         .then((data) => {
           userInfo.setUserAvatar(data.avatar)
+          popupAvatar.close()
         })
         .catch((err) => {
           console.log(`Ошибка.....: ${err}`);
         })      
         .finally(() =>{
           renderLoaiding(popupAvatar.button, false);
-          popupAvatar.close()
         })
     }
   })
@@ -75,9 +77,9 @@ let userId
   })
  
 const popupUser = new PopupWithForm ('.popup_type_profile',
-{handleFormSubmit: () =>{
+{handleFormSubmit: (data) =>{
   renderLoaiding(popupUser.button, true)
-  api.setUserInfo(popupUser.inputValues)
+  api.setUserInfo(data)
   .then((data) => {
     userInfo.setUserInfo(data);
   })
@@ -128,13 +130,10 @@ editButton.addEventListener('click', () => {
       }
     },
     {openDeletePopup: () => {
-     deletePopup.open(card.id, {
-      handleCardDelete: ()=>{
-        card.deleteCard()
-      }
-     })     
+     deletePopup.open(card.id, card)
+     }   
     }
-  });
+  );
     const cardElement = card.generateCard();
     return cardElement;
  };
@@ -145,18 +144,18 @@ formList.forEach((form) => {
 });
 
   const popupMesto = new PopupWithForm('.popup_type_mesto',
-  {handleFormSubmit: () => {
+  {handleFormSubmit: (data) => {
     renderLoaiding(popupMesto.button, true)
-    api.createNewCard(popupMesto.inputValues)
+    api.createNewCard(data)
     .then((data) => {
       cardList.addNewItem(createCard(data, '.mesto-template', userId));
+      popupMesto.close();
     })
     .catch((err) => {
       console.log(`Ошибка.....: ${err}`);
     })  
     .finally(() => {
       renderLoaiding(popupMesto.button, false);
-      popupMesto.close();
     })
   }});
   
@@ -167,10 +166,10 @@ formList.forEach((form) => {
   });
 
   const deletePopup = new PopupDelete('.popup_type_delete', {
-    handleFormSubmit: (id) =>{
+    handleFormSubmit: (id, card) =>{
       api.deleteCard(id)
       .then(() => {
-        deletePopup._handleCardDelete()
+        card.deleteCard()
         deletePopup.close();     
       })
       .catch((err) => {
